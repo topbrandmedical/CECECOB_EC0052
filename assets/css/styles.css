@@ -2101,7 +2101,7 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .process__steps::before { display: none; }
   .testimonials__grid { grid-template-columns: repeat(2, 1fr); }
   .location__inner { grid-template-columns: 1fr; }
-  .location__right { margin-top: 180px; }
+  .location__right { margin-top: 260px; }
   /* Countdown móvil: una sola fila, sin segundos */
   .countdown {
     gap: 6px;
