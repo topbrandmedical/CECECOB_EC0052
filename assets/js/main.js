@@ -13,9 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
     promoBar.style.display = 'none';
   }
 
+  // Click en cualquier parte del bar → abrir WhatsApp
+  const promoWaUrl = 'https://wa.me/524774095662?text=Hola%2C%20quiero%20aprovechar%20el%20precio%20de%20promoci%C3%B3n%20en%20el%20Estandar%20EC0052';
+  if (promoBar) {
+    promoBar.style.cursor = 'pointer';
+    promoBar.addEventListener('click', (e) => {
+      if (!e.target.closest('.promo-bar__close')) {
+        window.open(promoWaUrl, '_blank', 'noopener,noreferrer');
+      }
+    });
+  }
+
   if (promoClose && promoBar) {
     promoClose.addEventListener('click', (e) => {
-      e.stopPropagation(); // evita que el click active el link de WhatsApp
+      e.stopPropagation();
       promoBar.classList.add('hidden');
       setTimeout(() => { promoBar.style.display = 'none'; }, 300);
       sessionStorage.setItem('promoClosed', '1');
