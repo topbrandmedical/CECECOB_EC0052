@@ -2116,3 +2116,34 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .footer__logos { justify-content: center; }
   .whatsapp-float { bottom: 20px; right: 20px; width: 54px; height: 54px; }
 }
+
+/* ============================================================
+   PERFORMANCE — Deshabilitar parallax en móvil (≤ 768px)
+   background-attachment: fixed causa repintado constante en
+   dispositivos móviles, penalizando fuertemente el rendimiento
+   ============================================================ */
+@media (max-width: 768px) {
+  .testimonials,
+  .faq,
+  .location {
+    background-attachment: scroll;
+  }
+}
+
+/* ============================================================
+   PERFORMANCE — will-change para elementos animados
+   Evita reprocesamiento forzado (forced reflow)
+   ============================================================ */
+.value__card,
+.process__step,
+.testimonial-card,
+.faq__item,
+.empathy__item {
+  will-change: transform, opacity;
+}
+.scroll-progress-bar {
+  will-change: width;
+}
+.navbar {
+  will-change: box-shadow;
+}

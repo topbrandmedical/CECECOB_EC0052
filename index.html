@@ -230,10 +230,15 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/img/logos/logotipo_cececob_icono_favicon.svg">
 
-  <!-- Google Fonts: Inter -->
+  <!-- Preload imagen hero (LCP crítico) -->
+  <link rel="preload" as="image" href="assets/img/fotos/hero.webp" fetchpriority="high">
+
+  <!-- Google Fonts: Inter — carga asíncrona para no bloquear renderizado -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
 
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
@@ -346,7 +351,9 @@
       <div class="hero__bg">
         <img src="assets/img/fotos/hero.webp"
              alt="Optometrista empírico certificado con CECECOB y RED CONOCER trabajando en su óptica"
-             loading="eager">
+             loading="eager"
+             fetchpriority="high"
+             width="1920" height="1080">
       </div>
       <!-- Overlay oscuro para legibilidad -->
       <div class="hero__overlay"></div>
@@ -397,13 +404,13 @@
         <div class="avalado-por__logos">
           <img src="assets/img/logos/logo-conocer.svg"
                alt="RED CONOCER - Certificación EC0052"
-               height="48">
+               height="48" loading="lazy">
           <img src="assets/img/logos/logotipo_gto.svg"
                alt="Gobierno del Estado de Guanajuato"
-               height="48">
+               height="48" loading="lazy">
           <img src="assets/img/logos/logotipo_marca_gto.svg"
                alt="Distintivo Marca Guanajuato"
-               height="48">
+               height="48" loading="lazy">
         </div>
       </div>
     </section>
@@ -496,7 +503,8 @@
           <div class="empathy__visual">
             <img src="assets/img/fotos/optometristra_frustrado1.webp"
                  alt="Optometrista empírico sin certificación oficial"
-                 class="empathy__img">
+                 class="empathy__img"
+                 loading="lazy">
           </div>
 
         </div><!-- /.empathy__body -->
@@ -579,7 +587,8 @@
           <h2 class="value__hero-title">Tú también puedes ser parte de la familia CECECOB</h2>
           <img src="assets/img/fotos/certificado.webp"
                alt="Certificado EC0052 CECECOB - optometristas certificados"
-               class="value__hero-img">
+               class="value__hero-img"
+               loading="lazy">
         </div>
 
         <!-- Tabla comparativa -->
