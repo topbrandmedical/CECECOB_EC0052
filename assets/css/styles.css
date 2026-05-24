@@ -165,6 +165,7 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 /* Link que cubre todo el ticker */
 .promo-bar__link {
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -176,7 +177,7 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 /* Ticker / carrete que se mueve */
 .promo-bar__ticker {
   flex: 1;
-  width: 100%;
+  min-width: 0;
   overflow: hidden;
   mask-image: linear-gradient(
     to right,
