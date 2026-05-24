@@ -805,6 +805,11 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   font-weight: 900;
   color: var(--c-green-dark);
 }
+.testimonials .section-subtitle {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 .value__hero {
   text-align: center;
   margin: var(--space-xl) 0 var(--space-lg);
