@@ -2096,6 +2096,13 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 @media (max-width: 640px) {
   :root { --space-2xl: 72px; --space-xl: 48px; --space-lg: 36px; }
   .container { padding: 0 20px; }
+  .avalado-por__logos {
+    gap: 16px;
+    justify-content: center;
+  }
+  .avalado-por__logos img {
+    height: 40px;
+  }
   .hero .container {
     padding-left: 20px;
     padding-right: 20px;
