@@ -2199,7 +2199,17 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .process__steps { grid-template-columns: 1fr; gap: var(--space-md); }
   .hero__actions { align-items: stretch; }
   .btn--lg { font-size: 1rem; padding: 16px 24px; }
-  .cta-final__stats { gap: var(--space-md); }
+  .cta-final__stats {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  .cta-final__stats > * {
+    flex: 1 1 40%;
+    text-align: center;
+  }
+  .cta-final__stat-num { font-size: 1.6rem; }
+  .cta-final__stat-label { font-size: 0.7rem; }
   .footer__inner { grid-template-columns: 1fr 1fr; }
   .footer__copy { text-align: left; }
   .footer__logos { justify-content: center; }
