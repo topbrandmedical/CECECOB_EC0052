@@ -2122,9 +2122,15 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   }
   .navbar__cta { display: none; }
   .credibility__grid { grid-template-columns: repeat(2, 1fr); }
-  .credibility__item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .credibility__item {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 12px 8px;
+  }
   .credibility__item:nth-child(even),
   .credibility__item:last-child { border-bottom: none; }
+  .credibility__number { font-size: 2rem; }
+  .credibility__label { font-size: 0.72rem; }
   .empathy__body { grid-template-columns: 1fr; }
   .empathy__visual { position: static; }
   .empathy__img { height: 300px; }
