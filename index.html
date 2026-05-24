@@ -1137,10 +1137,12 @@
           <div class="location__right">
 
             <h3 class="location__form-title">¿Tienes más dudas? Ponte en contacto con nosotros.</h3>
-            <form class="location__form" action="https://formsubmit.co/cececob.bajio@gmail.com" method="POST">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_subject" value="Nuevo contacto desde CECECOB">
-              <input type="hidden" name="_next" value="https://www.cececob.com">
+            <form class="location__form" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="feff5f32-b93a-460e-bd61-df707039ee4b">
+              <input type="hidden" name="subject" value="Nuevo contacto desde CECECOB EC0052">
+              <input type="hidden" name="from_name" value="Landing CECECOB">
+              <input type="hidden" name="redirect" value="https://cececob-ec0052.pages.dev">
+              <input type="checkbox" name="botcheck" style="display:none;">
               <div class="location__form-row">
                 <div class="location__form-group">
                   <label for="nombre">Nombre</label>
