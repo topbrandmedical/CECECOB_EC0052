@@ -1432,9 +1432,13 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-  margin-top: calc(-1 * var(--space-2xl) - 140px);
   max-width: 460px;
   margin-left: auto;
+}
+@media (min-width: 1025px) {
+  .location__right {
+    margin-top: calc(-1 * var(--space-2xl) - 140px);
+  }
 }
 .location__form-title {
   font-size: clamp(1.2rem, 2vw, 1.6rem);
@@ -2121,9 +2125,9 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .countdown > div:nth-last-child(1),
   .countdown > div:nth-last-child(2) { display: none; }
   /* Sección ubicación — móvil */
-  .location__inner { gap: 16px !important; }
+  .location__inner { gap: 16px; }
   .location__right {
-    margin-top: 16px !important;
+    margin-top: 0;
     max-width: 100%;
     margin-left: 0;
   }
