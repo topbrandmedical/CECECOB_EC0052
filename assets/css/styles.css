@@ -2209,6 +2209,16 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .value__grid { grid-template-columns: 1fr; }
   .testimonials__grid { grid-template-columns: 1fr; }
   .process__steps { grid-template-columns: 1fr; gap: var(--space-md); }
+  /* Ubicación: reemplazar grid por bloque simple en móvil */
+  .location__inner {
+    display: block !important;
+  }
+  .location__right {
+    display: block;
+    margin-top: 24px;
+    max-width: 100%;
+    margin-left: 0;
+  }
   .hero__actions { align-items: stretch; }
   .btn--lg { font-size: 1rem; padding: 16px 24px; }
   .cta-final__stats {
