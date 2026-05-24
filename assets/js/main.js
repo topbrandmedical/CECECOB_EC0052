@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (promoClose && promoBar) {
-    promoClose.addEventListener('click', () => {
+    promoClose.addEventListener('click', (e) => {
+      e.stopPropagation(); // evita que el click active el link de WhatsApp
       promoBar.classList.add('hidden');
       setTimeout(() => { promoBar.style.display = 'none'; }, 300);
       sessionStorage.setItem('promoClosed', '1');

@@ -160,11 +160,23 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   align-items: center;
   overflow: hidden;
   z-index: 200;
+  cursor: pointer;
+}
+/* Link que cubre todo el ticker */
+.promo-bar__link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
 }
 
 /* Ticker / carrete que se mueve */
 .promo-bar__ticker {
   flex: 1;
+  width: 100%;
   overflow: hidden;
   mask-image: linear-gradient(
     to right,
