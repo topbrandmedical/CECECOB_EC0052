@@ -2101,7 +2101,7 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .process__steps::before { display: none; }
   .testimonials__grid { grid-template-columns: repeat(2, 1fr); }
   .location__inner { grid-template-columns: 1fr; }
-  .location__inner { gap: 48px; }
+  .location__inner { gap: 0; }
   .location__right { margin-top: 0; }
   /* Countdown móvil: una sola fila, sin segundos */
   .countdown {
@@ -2120,9 +2120,16 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   /* Ocultar segundos y su separador en móvil */
   .countdown > div:nth-last-child(1),
   .countdown > div:nth-last-child(2) { display: none; }
+  /* Sección ubicación — móvil */
+  .location__inner { gap: 16px !important; }
+  .location__right {
+    margin-top: 16px !important;
+    max-width: 100%;
+    margin-left: 0;
+  }
   .location__form-title { margin-top: 0; }
   .location__form {
-    margin-top: 16px;
+    margin-top: 12px;
     padding: 16px;
     width: 100%;
     box-sizing: border-box;
