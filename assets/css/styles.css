@@ -2102,6 +2102,23 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .testimonials__grid { grid-template-columns: repeat(2, 1fr); }
   .location__inner { grid-template-columns: 1fr; }
   .location__right { margin-top: 180px; }
+  /* Countdown móvil: una sola fila, sin segundos */
+  .countdown {
+    gap: 6px;
+    flex-wrap: nowrap;
+    margin: var(--space-sm) 0;
+  }
+  .countdown__item {
+    padding: 10px 12px;
+    min-width: 0;
+    flex: 1;
+  }
+  .countdown__num { font-size: 1.6rem; letter-spacing: 1px; }
+  .countdown__label { font-size: 0.55rem; letter-spacing: 1px; }
+  .countdown__sep { font-size: 1.4rem; margin-bottom: 14px; }
+  /* Ocultar segundos en móvil */
+  .countdown__item:last-child,
+  .countdown__sep:last-of-type { display: none; }
   .location__form-title { margin-top: 0; }
   .location__form {
     margin-top: 16px;
