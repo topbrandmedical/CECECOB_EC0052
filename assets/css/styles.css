@@ -2144,7 +2144,11 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .credibility__number { font-size: 2rem; }
   .credibility__label { font-size: 0.72rem; }
   .empathy__body { grid-template-columns: 1fr; }
-  .empathy__visual { position: static; }
+  .empathy__visual {
+    position: static;
+    margin-bottom: 0;
+    margin-top: 32px;
+  }
   .empathy__img { height: 300px; }
   .empathy__list { grid-template-columns: 1fr; }
   .value__grid { grid-template-columns: 1fr; }
