@@ -1337,7 +1337,7 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
    ============================================================ */
 .location {
   padding: var(--space-lg) 0;
-  background-image: url('../img/fotos/fondo_2_cececob.webp');
+  background-image: url('../img/fotos/fondo_2_cececob.1.webp');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -2148,6 +2148,7 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .empathy__body { grid-template-columns: 1fr; }
   .empathy__visual--desktop { display: none; }
   .empathy__visual--mobile {
+    display: flex;
     position: static;
     margin-bottom: 0;
     margin-top: 32px;
