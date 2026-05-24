@@ -2130,20 +2130,3 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   }
 }
 
-/* ============================================================
-   PERFORMANCE — will-change para elementos animados
-   Evita reprocesamiento forzado (forced reflow)
-   ============================================================ */
-.value__card,
-.process__step,
-.testimonial-card,
-.faq__item,
-.empathy__item {
-  will-change: transform, opacity;
-}
-.scroll-progress-bar {
-  will-change: width;
-}
-.navbar {
-  will-change: box-shadow;
-}
