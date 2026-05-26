@@ -235,21 +235,22 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 .social-toast {
   position: fixed;
   bottom: 100px;  /* por encima del WhatsApp float */
-  left: 24px;
+  right: 24px;
+  left: auto;
   z-index: 8888;
   background: var(--c-white);
   border-radius: var(--r-lg);
   box-shadow: 0 8px 32px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.06);
   padding: 14px 16px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
-  max-width: 300px;
+  max-width: 320px;
   transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
   border-left: 3px solid var(--c-brand);
 }
 .social-toast.hidden {
-  transform: translateX(-120%);
+  transform: translateX(140%);
   opacity: 0;
   pointer-events: none;
 }
@@ -259,6 +260,7 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 }
 .social-toast__avatar {
   width: 40px; height: 40px;
+  min-width: 40px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--c-brand) 0%, var(--c-btn) 100%);
   display: flex;
@@ -268,29 +270,32 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   font-size: 1rem;
   color: var(--c-dark);
   flex-shrink: 0;
+  margin-top: 2px;
 }
 .social-toast__content {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
 }
 .social-toast__name {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--c-text);
   white-space: nowrap;
+  line-height: 1.3;
 }
 .social-toast__action {
-  font-size: 0.78rem;
+  font-size: 0.77rem;
   color: var(--c-text-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.45;
+  overflow: visible;
 }
 .social-toast__time {
   font-size: 0.7rem;
   color: var(--c-text-light);
+  margin-top: 2px;
 }
 .social-toast__close {
   background: none;
@@ -2534,7 +2539,8 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   /* Social toast en móvil — ajustar posición */
   .social-toast {
     bottom: 88px; /* encima de la barra sticky */
-    left: 12px;
+    right: 12px;
+    left: auto;
     max-width: calc(100vw - 24px);
   }
 
@@ -2548,45 +2554,52 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   COOKIE CONSENT BANNER
+   COOKIE CONSENT — Popup compacto translúcido (esquina inferior izquierda)
    ══════════════════════════════════════════════════════════════════════ */
 .cookie-banner {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 28px;
+  left: 24px;
+  right: auto;
   z-index: 9600;
-  background: var(--c-forest);
-  border-top: 2px solid var(--c-brand);
-  padding: var(--space-sm) var(--space-md);
-  transform: translateY(100%);
-  transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
-  box-shadow: 0 -6px 32px rgba(0, 0, 0, 0.4);
+  width: 280px;
+  background: rgba(13, 51, 32, 0.84);        /* --c-forest con alpha */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(182, 244, 0, 0.22); /* borde verde lima sutil */
+  border-radius: 18px;
+  padding: 18px 16px 14px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  transform: translateX(-130%);
+  opacity: 0;
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1),
+    opacity   0.35s ease;
 }
-.cookie-banner.visible  { transform: translateY(0); }
-.cookie-banner.hidden   { display: none; }
+.cookie-banner.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+.cookie-banner.hidden { display: none; }
 
 .cookie-banner__inner {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .cookie-banner__icon {
-  font-size: 1.6rem;
-  flex-shrink: 0;
+  font-size: 1.35rem;
   line-height: 1;
+  margin-bottom: 2px;
 }
 
 .cookie-banner__text {
-  flex: 1;
-  min-width: 240px;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.55;
+  font-size: 0.79rem;
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.5;
 }
 .cookie-banner__text strong { color: var(--c-white); }
 
@@ -2594,12 +2607,12 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   background: none;
   border: none;
   color: var(--c-brand);
-  font-size: 0.875rem;
+  font-size: 0.79rem;
   font-family: var(--font);
   font-weight: 600;
   cursor: pointer;
   padding: 0;
-  margin-left: 4px;
+  margin-left: 3px;
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.2s;
@@ -2608,19 +2621,20 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 
 .cookie-banner__actions {
   display: flex;
-  gap: 10px;
-  flex-shrink: 0;
+  flex-direction: column;
+  gap: 7px;
 }
 
 .cookie-banner__btn {
-  padding: 0.55rem 1.3rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
   border-radius: var(--r-full);
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-family: var(--font);
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
-  white-space: nowrap;
+  text-align: center;
   line-height: 1;
 }
 .cookie-banner__btn--accept {
@@ -2636,16 +2650,13 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 }
 .cookie-banner__btn--essential {
   background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .cookie-banner__btn--essential:hover {
-  border-color: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.5);
   color: var(--c-white);
 }
-
-/* Ocultar mobile sticky mientras el banner esté activo */
-body.cookie-banner-open .mobile-sticky { display: none !important; }
 
 /* ── Tabla de cookies dentro del modal de privacidad ────────────────── */
 .privacy-table-wrap {
@@ -2685,23 +2696,11 @@ body.cookie-banner-open .mobile-sticky { display: none !important; }
   color: var(--c-forest);
 }
 
-/* ── Responsive cookie banner ───────────────────────────────────────── */
+/* ── Responsive cookie popup ────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .cookie-banner { padding: var(--space-sm); }
-  .cookie-banner__inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .cookie-banner__actions {
-    width: 100%;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .cookie-banner__btn {
-    width: 100%;
-    text-align: center;
-    padding: 0.75rem;
-    font-size: 0.9rem;
+  .cookie-banner {
+    width: calc(100vw - 32px);
+    left: 16px;
+    bottom: 16px;
   }
 }

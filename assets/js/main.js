@@ -434,24 +434,144 @@ document.addEventListener('DOMContentLoaded', () => {
      13. SOCIAL PROOF TOASTS [NUEVO]
      Muestra actividad de otros usuarios para generar
      urgencia social. Datos ficticios pero creíbles.
-     Se muestra en la esquina inferior izquierda, auto-cierra
-     en 6 segundos, y rota cada 18 segundos.
+     Se muestra en la esquina inferior DERECHA (sobre el botón
+     de WhatsApp), auto-cierra en 6 segundos, rota cada 2 min.
+     18 personas de distintas ciudades de México.
   ────────────────────────────────────────────────────────── */
   const toastData = [
-    { name: 'Ana R.',       action: 'solicitó información hace 8 min',   avatar: 'A', city: 'CDMX' },
-    { name: 'Carlos M.',    action: 'se registró hace 22 min',            avatar: 'C', city: 'Monterrey' },
-    { name: 'Laura V.',     action: 'preguntó por el precio especial',    avatar: 'L', city: 'Guadalajara' },
-    { name: 'Roberto S.',   action: 'acaba de inscribirse',               avatar: 'R', city: 'León, Gto.' },
-    { name: 'Sofía P.',     action: 'solicitó su lugar hace 35 min',      avatar: 'S', city: 'Aguascalientes' },
-    { name: 'Miguel Á.',    action: 'preguntó por las mensualidades',     avatar: 'M', city: 'Querétaro' },
-    { name: 'Diana L.',     action: 'se inscribió esta mañana',           avatar: 'D', city: 'Puebla' },
-    { name: 'Omar J.',      action: 'acaba de contactar a un asesor',     avatar: 'O', city: 'Tijuana' },
+    {
+      name:   'Ana R.',
+      avatar: 'A',
+      city:   'CDMX',
+      action: 'solicitó información sobre la certificación EC0052 y preguntó cuándo arranca la próxima generación',
+      time:   'hace 4 min'
+    },
+    {
+      name:   'Carlos M.',
+      avatar: 'C',
+      city:   'Monterrey, NL',
+      action: 'acaba de reservar su lugar en la generación de junio 2026 al precio especial de $9,990',
+      time:   'hace 11 min'
+    },
+    {
+      name:   'Laura V.',
+      avatar: 'L',
+      city:   'Guadalajara, Jal.',
+      action: 'preguntó por el plan de 3 mensualidades de $3,330 para poder inscribirse sin afectar su presupuesto',
+      time:   'hace 19 min'
+    },
+    {
+      name:   'Roberto S.',
+      avatar: 'R',
+      city:   'León, Gto.',
+      action: 'se inscribió esta mañana y ya recibió acceso a su primer módulo del programa híbrido',
+      time:   'hace 27 min'
+    },
+    {
+      name:   'Sofía P.',
+      avatar: 'S',
+      city:   'Aguascalientes',
+      action: 'contactó a un asesor para saber si su experiencia en óptica de 6 años es suficiente para certificarse',
+      time:   'hace 35 min'
+    },
+    {
+      name:   'Miguel Á.',
+      avatar: 'M',
+      city:   'Querétaro',
+      action: 'preguntó si el programa en línea es compatible con su horario de trabajo de lunes a sábado',
+      time:   'hace 48 min'
+    },
+    {
+      name:   'Diana L.',
+      avatar: 'D',
+      city:   'Puebla, Pue.',
+      action: 'se inscribió la semana pasada y compartió que llevaba 2 años buscando una certificación oficial válida',
+      time:   'hace 1 hora'
+    },
+    {
+      name:   'Omar J.',
+      avatar: 'O',
+      city:   'Tijuana, BC',
+      action: 'confirmó su pago de primera mensualidad y recibió su contrato de inscripción para la generación de junio',
+      time:   'hace 1 hora'
+    },
+    {
+      name:   'Patricia G.',
+      avatar: 'P',
+      city:   'San Luis Potosí',
+      action: 'solicitó información para inscribir a dos de sus empleados de óptica en el programa EC0052',
+      time:   'hace 2 horas'
+    },
+    {
+      name:   'Eduardo N.',
+      avatar: 'E',
+      city:   'Saltillo, Coah.',
+      action: 'preguntó si la certificación EC0052 es reconocida para trabajar en cadenas de ópticas y con aseguradoras',
+      time:   'hace 2 horas'
+    },
+    {
+      name:   'Fernanda T.',
+      avatar: 'F',
+      city:   'Toluca, Méx.',
+      action: 'reservó dos lugares, uno para ella y otro para su socia que lleva 8 años atendiendo en su óptica',
+      time:   'hace 3 horas'
+    },
+    {
+      name:   'Jesús H.',
+      avatar: 'J',
+      city:   'Mérida, Yuc.',
+      action: 'verificó su certificado recién obtenido en el portal RENAP de conocer.gob.mx — ¡ya aparece publicado!',
+      time:   'hace 4 horas'
+    },
+    {
+      name:   'Valeria R.',
+      avatar: 'V',
+      city:   'Hermosillo, Son.',
+      action: 'se inscribió tras recibir una inspección de COFEPRIS en su óptica y necesitar respaldo legal urgente',
+      time:   'hace 5 horas'
+    },
+    {
+      name:   'Andrés C.',
+      avatar: 'A',
+      city:   'Veracruz, Ver.',
+      action: 'preguntó cómo funciona la garantía del programa y si aplica si no pasa la evaluación final',
+      time:   'hoy'
+    },
+    {
+      name:   'Mónica E.',
+      avatar: 'M',
+      city:   'Chihuahua, Chih.',
+      action: 'agendó su evaluación diagnóstica gratuita con un asesor para conocer su nivel antes de inscribirse',
+      time:   'hoy'
+    },
+    {
+      name:   'Ricardo B.',
+      avatar: 'R',
+      city:   'Culiacán, Sin.',
+      action: 'obtuvo su certificación EC0052 hace 3 meses y ya firmó contrato como proveedor de una aseguradora',
+      time:   'esta semana'
+    },
+    {
+      name:   'Claudia O.',
+      avatar: 'C',
+      city:   'Oaxaca, Oax.',
+      action: 'preguntó cuántos lugares quedan disponibles para junio 2026 porque quiere asegurar el precio especial',
+      time:   'esta semana'
+    },
+    {
+      name:   'Héctor F.',
+      avatar: 'H',
+      city:   'Morelia, Mich.',
+      action: 'se inscribió y comentó que ya intentó certificarse antes con otro curso que no estaba avalado por CONOCER',
+      time:   'esta semana'
+    },
   ];
 
   const socialToast  = document.getElementById('socialToast');
   const toastAvatar  = document.getElementById('toastAvatar');
   const toastName    = document.getElementById('toastName');
   const toastAction  = document.getElementById('toastAction');
+  const toastTime    = document.getElementById('toastTime');
   const toastClose   = document.getElementById('toastClose');
 
   let toastIndex     = 0;
@@ -465,8 +585,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Actualizar contenido
     if (toastAvatar) toastAvatar.textContent = data.avatar;
-    if (toastName)   toastName.textContent   = data.name + ' — ' + data.city;
+    if (toastName)   toastName.textContent   = data.name + ' · ' + data.city;
     if (toastAction) toastAction.textContent = data.action;
+    if (toastTime)   toastTime.textContent   = data.time;
 
     // Mostrar
     socialToast.classList.remove('hidden');
@@ -490,11 +611,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Empezar toasts: primer aparición a los 8 seg, luego cada 18 seg
+  // Empezar toasts: primer aparición a los 8 seg, luego cada 2 minutos
   if (socialToast) {
     setTimeout(() => {
       showToast();
-      toastTimer = setInterval(showToast, 18000);
+      toastTimer = setInterval(showToast, 120000);
     }, 8000);
   }
 
