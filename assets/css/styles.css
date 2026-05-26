@@ -1181,14 +1181,23 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 /* Sobreescritura de section-label en secciones con fondo oscuro
    (en las secciones claras usamos el token normal) */
 .value .section-label,
-.process .section-label,
-.faq .section-label {
+.process .section-label {
   /* Mantener el label pequeño — NO convertirlo en h2 */
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--c-brand-dark);
+}
+
+/* "Preguntas frecuentes" — título destacado en sección FAQ */
+.faq .section-label {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--c-brand-dark);
+  margin-bottom: 0.5rem;
 }
 
 /* "Casos Reales" — título destacado en sección testimonios */
