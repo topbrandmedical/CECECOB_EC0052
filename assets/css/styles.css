@@ -2431,13 +2431,38 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .avalado-por__logos img { height: 58px; }
 
   .hero .container { padding-left: 20px; padding-right: 20px; }
-  .hero__inner { max-width: 100%; }
-  .hero__headline { font-size: 1.05rem; line-height: 1.45; }
-  .hero__headline--secondary { font-size: 0.92rem; }
-  .hero__headline .highlight { font-size: 1.15rem; }
-  .hero__trust-strip { gap: 0; }
-  .hero__trust-item { padding: 0 12px; }
-  .hero__trust-num { font-size: 0.9rem; }
+  .hero {
+    height: auto;
+    min-height: calc(100vh - 72px);
+    max-height: none;
+    align-items: flex-start;
+  }
+  .hero__inner {
+    max-width: 100%;
+    padding: 18px 0 20px;
+  }
+  .hero__badge {
+    font-size: 0.7rem;
+    padding: 4px 11px;
+    margin-bottom: 0.65rem;
+  }
+  .hero__headline {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+  }
+  .hero__headline--secondary { font-size: 0.82rem; }
+  .hero__headline .highlight  { font-size: 1rem; }
+  .hero__subheadline {
+    margin-bottom: 0.75rem;
+  }
+  .hero__subheadline p {
+    font-size: 0.8rem;
+    margin-bottom: 0.15rem;
+  }
+  /* Cifras ocultas en móvil — no caben en la primera pantalla */
+  .hero__trust-strip { display: none; }
+  .hero__actions { margin-top: 0; }
 
   .navbar__cta { display: none; }
 
