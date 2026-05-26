@@ -1100,7 +1100,7 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   object-position: center bottom;
   display: block;
   mix-blend-mode: multiply;
-  transform: translateY(-90px);
+  transform: translateY(-20px);
 }
 .empathy__content { display: flex; flex-direction: column; }
 .empathy__buttons {
