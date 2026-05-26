@@ -1182,7 +1182,6 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
    (en las secciones claras usamos el token normal) */
 .value .section-label,
 .process .section-label,
-.testimonials .section-label,
 .faq .section-label {
   /* Mantener el label pequeño — NO convertirlo en h2 */
   font-size: 0.75rem;
@@ -1190,6 +1189,16 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--c-brand-dark);
+}
+
+/* "Casos Reales" — título destacado en sección testimonios */
+.testimonials .section-label {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--c-brand-dark);
+  margin-bottom: 0.5rem;
 }
 
 .value__hero {
