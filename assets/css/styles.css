@@ -2433,13 +2433,13 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
   .hero .container { padding-left: 20px; padding-right: 20px; }
   .hero {
     height: auto;
-    min-height: calc(100vh - 72px);
+    min-height: 0;
     max-height: none;
     align-items: flex-start;
   }
   .hero__inner {
     max-width: 100%;
-    padding: 18px 0 20px;
+    padding: 18px 0 24px;
   }
   .hero__badge {
     font-size: 0.7rem;
