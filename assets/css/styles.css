@@ -75,7 +75,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  overflow-x: hidden;
+  /* overflow-x: hidden removido — rompía position:sticky en móvil.
+     El body ya tiene overflow-x: clip que previene scroll horizontal
+     sin crear un scroll container que interfiera con sticky. */
 }
 body {
   font-family: var(--font);
