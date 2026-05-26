@@ -233,10 +233,14 @@
   <!-- Preload imagen hero (LCP crítico) -->
   <link rel="preload" as="image" href="assets/img/fotos/header_cececob_1.1.webp" fetchpriority="high">
 
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Inter — carga asíncrona para no bloquear render -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+  </noscript>
 
   <link rel="stylesheet" href="assets/css/styles.css?v=6">
 </head>
@@ -307,7 +311,8 @@
       <!-- Logo -->
       <a href="#inicio" class="navbar__logo">
         <img src="assets/img/logos/logotipo_cececob_horizontal.svg"
-             alt="CECECOB - Centro de Certificación en Optometría">
+             alt="CECECOB - Centro de Certificación en Optometría"
+             width="180" height="80">
       </a>
 
       <!-- Menú de anclas (desktop) -->
@@ -763,6 +768,7 @@
                    alt="Nigteha Martí, egresado CECECOB"
                    class="testimonial-card__photo"
                    loading="lazy"
+                   width="56" height="56"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <div class="testimonial-card__initial" style="display:none;">N</div>
               <div>
@@ -785,6 +791,7 @@
                    alt="Mara Adriana Gutiérrez, egresada CECECOB"
                    class="testimonial-card__photo"
                    loading="lazy"
+                   width="56" height="56"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <div class="testimonial-card__initial" style="display:none;">M</div>
               <div>
@@ -808,6 +815,7 @@
                    alt="José Luis Torres Gutiérrez, egresado CECECOB"
                    class="testimonial-card__photo"
                    loading="lazy"
+                   width="56" height="56"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <div class="testimonial-card__initial" style="display:none;">J</div>
               <div>
