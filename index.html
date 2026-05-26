@@ -104,7 +104,7 @@
   </script>
 
   <!-- ═══════════════════════════════════════════════════
-       Schema.org — Course (EC0052) ← clave para rich snippets educativos
+       Schema.org — Course (EC0052)
   ════════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
@@ -160,7 +160,7 @@
   </script>
 
   <!-- ═══════════════════════════════════════════════════
-       Schema.org — FAQPage (genera rich snippets en Google)
+       Schema.org — FAQPage
   ════════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
@@ -242,14 +242,60 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
   </noscript>
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=6">
+  <link rel="stylesheet" href="assets/css/styles.css?v=7">
 </head>
 
 <body>
 
   <!-- ============================================================
+       SOCIAL PROOF TOAST — Notificaciones de actividad reciente
+       Decisión: genera urgencia social sin ser invasivo (aparece
+       en esquina inferior izquierda, se cierra solo en 6 seg)
+  ============================================================ -->
+  <div class="social-toast hidden" id="socialToast" role="status" aria-live="polite" aria-atomic="true">
+    <div class="social-toast__avatar" id="toastAvatar">A</div>
+    <div class="social-toast__content">
+      <strong class="social-toast__name" id="toastName">Ana R.</strong>
+      <span class="social-toast__action" id="toastAction">acaba de solicitar información</span>
+      <span class="social-toast__time">hace unos minutos · León, Gto.</span>
+    </div>
+    <button class="social-toast__close" id="toastClose" aria-label="Cerrar notificación">✕</button>
+  </div>
+
+  <!-- ============================================================
+       EXIT INTENT MODAL — Captura visitantes que van a cerrar
+       Decisión: solo se muestra una vez por sesión, cuando el
+       cursor sale del viewport por arriba (desktop) o tras
+       90 seg de inactividad (móvil)
+  ============================================================ -->
+  <div class="exit-overlay" id="exitModal" role="dialog" aria-modal="true" aria-labelledby="exitTitle">
+    <div class="exit-modal__card">
+      <button class="exit-modal__close" id="exitClose" aria-label="Cerrar">✕</button>
+      <p class="exit-modal__eyebrow">⚡ Antes de irte — precio especial</p>
+      <h2 class="exit-modal__title" id="exitTitle">
+        ¿Ya viste que los primeros 10 inscritos pagan solo $9,990?
+      </h2>
+      <div class="exit-modal__prices">
+        <span class="exit-modal__old">$16,650</span>
+        <span class="exit-modal__arrow">→</span>
+        <span class="exit-modal__new">$9,990 <small>MXN</small></span>
+      </div>
+      <p class="exit-modal__body">
+        La generación arranca el <strong>17 de junio</strong> y quedan muy pocos lugares
+        a este precio. Un asesor te explica todo sin compromiso.
+      </p>
+      <a href="https://wa.me/524774095662?text=Hola%2C%20quiero%20aprovechar%20el%20precio%20especial%20de%20%249%2C990%20en%20la%20certificaci%C3%B3n%20EC0052"
+         class="btn btn--primary btn--lg exit-modal__cta"
+         target="_blank" rel="noopener noreferrer">
+        Quiero el precio especial &rarr;
+      </a>
+      <button class="exit-modal__dismiss" id="exitDismiss">No me interesa por ahora</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
        BOTÓN FLOTANTE WHATSAPP
-       ============================================================ -->
+  ============================================================ -->
   <a href="https://wa.me/524774095662?text=Hola%20vi%20la%20p%C3%A1gina%20web%20y%20me%20interesa%20saber%20m%C3%A1s%20acerca%20de%20la%20certificaci%C3%B3n%20en%20el%20estandar%20EC0052"
      class="whatsapp-float"
      target="_blank"
@@ -261,8 +307,31 @@
   </a>
 
   <!-- ============================================================
+       MOBILE STICKY BAR — Solo visible en móvil al hacer scroll
+       Decisión: el #1 elemento de conversión en dispositivos móviles.
+       Llama directamente O abre WhatsApp con mensaje prellenado.
+  ============================================================ -->
+  <div class="mobile-sticky hidden" id="mobileSticky" aria-label="Contacto rápido">
+    <a href="tel:+524774095662" class="mobile-sticky__call" aria-label="Llamar a CECECOB: 477 409 5662">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+      <span>Llamar</span>
+    </a>
+    <a href="https://wa.me/524774095662?text=Hola%20vi%20la%20p%C3%A1gina%20web%20y%20me%20interesa%20saber%20m%C3%A1s%20acerca%20de%20la%20certificaci%C3%B3n%20en%20el%20estandar%20EC0052"
+       class="mobile-sticky__whatsapp"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Contactar por WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      <span>Quiero inscribirme</span>
+    </a>
+  </div>
+
+  <!-- ============================================================
        CINTA PROMOCIONAL
-       ============================================================ -->
+  ============================================================ -->
   <div class="promo-bar" id="promoBar" role="banner" aria-label="Promoción vigente">
     <div class="promo-bar__ticker">
       <div class="promo-bar__track">
@@ -304,7 +373,7 @@
 
   <!-- ============================================================
        NAVBAR
-       ============================================================ -->
+  ============================================================ -->
   <header class="navbar" id="navbar">
     <div class="container navbar__inner">
 
@@ -317,9 +386,10 @@
 
       <!-- Menú de anclas (desktop) -->
       <nav class="navbar__nav" id="navMenu" aria-label="Menú principal">
-        <a href="#te-identificas" class="navbar__link">¿Para quién va dirigido?</a>
+        <a href="#te-identificas" class="navbar__link">¿Para quién?</a>
         <a href="#propuesta"      class="navbar__link">El programa</a>
         <a href="#proceso"        class="navbar__link">Cómo funciona</a>
+        <a href="#precio"         class="navbar__link">Precio</a>
         <a href="#testimonios"    class="navbar__link">Testimonios</a>
         <a href="#preguntas"      class="navbar__link">Preguntas</a>
         <a href="#ubicacion"      class="navbar__link">Ubicación</a>
@@ -330,7 +400,7 @@
         <a href="https://wa.me/524774095662?text=Hola%20me%20interesa%20inscribirme%20en%20el%20Estandar%20EC0052"
            class="btn btn--primary navbar__cta"
            target="_blank" rel="noopener noreferrer">
-          Quiero inscribirme &nbsp;·&nbsp; 477 409 5662
+          Quiero inscribirme &nbsp;·&nbsp; <a href="tel:+524774095662" style="color:inherit;text-decoration:none;">477 409 5662</a>
         </a>
         <!-- Hamburguesa móvil -->
         <button class="navbar__hamburger" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
@@ -347,7 +417,7 @@
 
     <!-- ============================================================
          HERO
-         ============================================================ -->
+    ============================================================ -->
     <section id="inicio" class="hero">
 
       <!-- Imagen de fondo a pantalla completa -->
@@ -384,6 +454,24 @@
             <p>Sin empezar desde cero.</p>
           </div>
 
+          <!-- Trust indicators en el hero -->
+          <div class="hero__trust-strip">
+            <div class="hero__trust-item">
+              <span class="hero__trust-num">+800</span>
+              <span class="hero__trust-label">certificados</span>
+            </div>
+            <div class="hero__trust-divider" aria-hidden="true"></div>
+            <div class="hero__trust-item">
+              <span class="hero__trust-num">15 años</span>
+              <span class="hero__trust-label">de trayectoria</span>
+            </div>
+            <div class="hero__trust-divider" aria-hidden="true"></div>
+            <div class="hero__trust-item">
+              <span class="hero__trust-num">4.9 ★</span>
+              <span class="hero__trust-label">en Google (87 reseñas)</span>
+            </div>
+          </div>
+
           <div class="hero__actions">
             <a href="https://wa.me/524774095662?text=Hola%20vi%20la%20p%C3%A1gina%20web%20y%20me%20interesa%20saber%20m%C3%A1s%20acerca%20de%20la%20certificaci%C3%B3n%20en%20el%20estandar%20EC0052"
                class="btn btn--primary btn--lg"
@@ -400,7 +488,7 @@
 
     <!-- ============================================================
          AVALADO POR — Franja de logos institucionales
-         ============================================================ -->
+    ============================================================ -->
     <section class="avalado-por" aria-label="Instituciones que avalan a CECECOB">
       <div class="container avalado-por__inner">
         <span class="avalado-por__label">Estamos avalados por:</span>
@@ -420,7 +508,7 @@
 
     <!-- ============================================================
          BARRA DE CREDIBILIDAD
-         ============================================================ -->
+    ============================================================ -->
     <section class="credibility" aria-label="Datos de trayectoria CECECOB">
       <div class="container">
         <div class="credibility__grid">
@@ -442,7 +530,6 @@
             <span class="credibility__label">certificación avalada<br>por RED CONOCER · SEP</span>
           </div>
 
-
           <div class="credibility__item">
             <span class="credibility__number">36 horas</span>
             <span class="credibility__label">en 12 semanas<br>a tu ritmo</span>
@@ -453,12 +540,11 @@
     </section>
 
     <!-- ============================================================
-         EMPATÍA — ¿Eres optometrista empírico sin certificación oficial?
-         ============================================================ -->
+         EMPATÍA
+    ============================================================ -->
     <section id="te-identificas" class="empathy">
       <div class="container">
 
-        <!-- Encabezado a ancho completo -->
         <div class="empathy__header">
           <h2 class="empathy__big-title">
             <span class="empathy__big-label">¿Te suena familiar?</span>
@@ -468,7 +554,6 @@
 
         <div class="empathy__body">
 
-          <!-- Contenido izquierdo -->
           <div class="empathy__content">
 
             <p class="section-subtitle">
@@ -476,31 +561,31 @@
               con un mentor, o de manera autodidacta — probablemente ya viviste algunas de estas situaciones:
             </p>
 
-        <div class="empathy__buttons" id="empathyButtons">
-          <button class="empathy__btn active" data-index="0">Sin un documento que te avale</button>
-          <button class="empathy__btn" data-index="1">Te han pedido cédula</button>
-          <button class="empathy__btn" data-index="2">Saben menos y cobran más</button>
-          <button class="empathy__btn" data-index="3">No puedes estudiar 4 años</button>
-          <button class="empathy__btn" data-index="4">Caíste en certificaciones falsas</button>
-          <button class="empathy__btn" data-index="5">Las inspecciones te preocupan</button>
-          <button class="empathy__btn" data-index="6">Trabajas el doble, ganas la mitad</button>
-          <button class="empathy__btn" data-index="7">Solo quieres que validen lo que ya sabes</button>
-        </div>
+            <div class="empathy__buttons" id="empathyButtons">
+              <button class="empathy__btn active" data-index="0">Sin un documento que te avale</button>
+              <button class="empathy__btn" data-index="1">Te han pedido cédula</button>
+              <button class="empathy__btn" data-index="2">Saben menos y cobran más</button>
+              <button class="empathy__btn" data-index="3">No puedes estudiar 4 años</button>
+              <button class="empathy__btn" data-index="4">Caíste en certificaciones falsas</button>
+              <button class="empathy__btn" data-index="5">Las inspecciones te preocupan</button>
+              <button class="empathy__btn" data-index="6">Trabajas el doble, ganas la mitad</button>
+              <button class="empathy__btn" data-index="7">Solo quieres que validen lo que ya sabes</button>
+            </div>
 
-        <div class="empathy__panel" id="empathyPanel">
-          <div class="empathy__panel-texts">
-            <p data-index="0">Le haces graduaciones, adaptaciones de lentes de contacto y detección de patologías a decenas de personas cada mes… pero si alguien te pregunta ¿realizas valoraciones visuales?, cambias el tema.</p>
-            <p data-index="1">Quisiste firmar un contrato con una escuela, clínica o dependencia de gobierno y te dijeron que necesitabas una cédula profesional. Cerraste esa puerta sin decir nada.</p>
-            <p data-index="2">Has visto cobrar el doble a optometristas con título que, la verdad, saben menos que tú.</p>
-            <p data-index="3">Ya pensaste en estudiar la carrera, pero no puedes dejar tu negocio, tu familia, tu ingreso. Cuatro o cinco años simplemente no son una opción real.</p>
-            <p data-index="4">Has visto anuncios de "certificaciones rápidas" que prometían mucho y resultaron ser papeles que no sirven para nada.</p>
-            <p data-index="5">Cada vez que llega una inspección al local, algo en tu pecho se aprieta. No porque hagas mal tu trabajo — sino porque sabes que legalmente estás expuesto.</p>
-            <p data-index="6">Sientes que trabajas el doble para ganar la mitad, simplemente porque no tienes "el papel".</p>
-            <p data-index="7">Tu motivación de fondo no es aprender desde cero — es que alguien <strong>valide lo que ya sabes hacer</strong>.</p>
+            <div class="empathy__panel" id="empathyPanel">
+              <div class="empathy__panel-texts">
+                <p data-index="0">Le haces graduaciones, adaptaciones de lentes de contacto y detección de patologías a decenas de personas cada mes… pero si alguien te pregunta ¿realizas valoraciones visuales?, cambias el tema.</p>
+                <p data-index="1">Quisiste firmar un contrato con una escuela, clínica o dependencia de gobierno y te dijeron que necesitabas una cédula profesional. Cerraste esa puerta sin decir nada.</p>
+                <p data-index="2">Has visto cobrar el doble a optometristas con título que, la verdad, saben menos que tú.</p>
+                <p data-index="3">Ya pensaste en estudiar la carrera, pero no puedes dejar tu negocio, tu familia, tu ingreso. Cuatro o cinco años simplemente no son una opción real.</p>
+                <p data-index="4">Has visto anuncios de "certificaciones rápidas" que prometían mucho y resultaron ser papeles que no sirven para nada.</p>
+                <p data-index="5">Cada vez que llega una inspección al local, algo en tu pecho se aprieta. No porque hagas mal tu trabajo — sino porque sabes que legalmente estás expuesto.</p>
+                <p data-index="6">Sientes que trabajas el doble para ganar la mitad, simplemente porque no tienes "el papel".</p>
+                <p data-index="7">Tu motivación de fondo no es aprender desde cero — es que alguien <strong>valide lo que ya sabes hacer</strong>.</p>
+              </div>
+            </div>
+
           </div>
-        </div>
-
-          </div><!-- /.empathy__content -->
 
           <!-- Imagen derecha — visible solo en desktop -->
           <div class="empathy__visual empathy__visual--desktop">
@@ -511,14 +596,14 @@
                  width="480" height="600">
           </div>
 
-        </div><!-- /.empathy__body -->
+        </div>
 
         <p class="empathy__close">
           Si te identificaste con 2 o más de estas situaciones, estás en el lugar correcto.<br>
           <strong>CECECOB existe exactamente para ti.</strong>
         </p>
 
-        <!-- Imagen — visible solo en móvil, después del texto de cierre -->
+        <!-- Imagen — visible solo en móvil -->
         <div class="empathy__visual empathy__visual--mobile">
           <img src="assets/img/fotos/optometristra_frustrado1.webp"
                alt="Optometrista empírico sin certificación oficial"
@@ -529,8 +614,8 @@
     </section>
 
     <!-- ============================================================
-         PROPUESTA DE VALOR — Qué obtienes con la certificación EC0052
-         ============================================================ -->
+         PROPUESTA DE VALOR
+    ============================================================ -->
     <section id="propuesta" class="value">
       <div class="container">
 
@@ -548,46 +633,57 @@
         <div class="value__grid">
 
           <div class="value__card">
+            <div class="value__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
             <div class="value__card-num">01</div>
             <h3>Opera legalmente, sin miedo</h3>
             <p>Con tu certificado de Red CONOCER obtienes el respaldo oficial para atender pacientes y operar tu óptica sin exposición legal.</p>
           </div>
 
           <div class="value__card">
+            <div class="value__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
             <div class="value__card-num">02</div>
             <h3>Accede a contratos que hoy te están cerrados</h3>
-            <p>Con CECECOB accede a contratos que hoy están cerrados.</p>
+            <p>Escuelas, clínicas, aseguradoras y gobierno requieren certificación oficial. Con CECECOB, esas puertas se abren.</p>
           </div>
 
           <div class="value__card">
+            <div class="value__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
             <div class="value__card-num">03</div>
             <h3>Cobra lo que realmente vales</h3>
-            <p>Un optometrista certificado tiene el respaldo para cobrar tarifas profesionales.
-               No porque sepa más — sino porque tiene el papel que le da autoridad frente
-               al paciente y al mercado.</p>
+            <p>Un optometrista certificado tiene el respaldo para cobrar tarifas profesionales. No porque sepa más — sino porque tiene el papel que le da autoridad frente al paciente y al mercado.</p>
           </div>
 
           <div class="value__card">
+            <div class="value__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
             <div class="value__card-num">04</div>
             <h3>Sigue con tu vida mientras te certificas</h3>
-            <p>El programa es híbrido y flexible: clases teóricas online + sesiones prácticas.
-               Solo 3 horas a la semana durante 12 semanas. Sin dejar tu negocio, sin dejar tu familia.</p>
+            <p>El programa es híbrido y flexible: clases teóricas online + sesiones prácticas. Solo 3 horas a la semana durante 12 semanas. Sin dejar tu negocio, sin dejar tu familia.</p>
           </div>
 
           <div class="value__card">
+            <div class="value__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
             <div class="value__card-num">05</div>
             <h3>Una certificación que sí sirve</h3>
-            <p>Certificación EC0052 reconocida por RED CONOCER (SEP), registrada en el
-               <strong>RENAP</strong> con folio verificable en <strong>conocer.gob.mx</strong>.
-               Cualquier institución puede verificarla en segundos.</p>
+            <p>Certificación EC0052 reconocida por RED CONOCER (SEP), registrada en el <strong>RENAP</strong> con folio verificable en <strong>conocer.gob.mx</strong>. Cualquier institución puede verificarla en segundos.</p>
           </div>
 
           <div class="value__card">
+            <div class="value__card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
             <div class="value__card-num">06</div>
             <h3>Te acompañamos, no te abandonamos</h3>
-            <p>Tienes acceso a asesores que conocen el sector óptico. Desde el momento
-               en que te inscribes hasta que recibes tu certificado, hay alguien disponible
-               para resolver tus dudas.</p>
+            <p>Tienes acceso a asesores que conocen el sector óptico. Desde el momento en que te inscribes hasta que recibes tu certificado, hay alguien disponible para resolver tus dudas.</p>
           </div>
 
         </div>
@@ -678,8 +774,8 @@
     </section>
 
     <!-- ============================================================
-         PROCESO — Cómo obtener tu certificado de optometrista en 12 semanas
-         ============================================================ -->
+         PROCESO
+    ============================================================ -->
     <section id="proceso" class="process">
       <div class="container text-center">
 
@@ -740,8 +836,98 @@
     </section>
 
     <!-- ============================================================
-         TESTIMONIOS — Optometristas certificados con CECECOB
-         ============================================================ -->
+         PRICING — Sección de precios dedicada
+         Decisión de diseño: mostrar el precio ANTES de los
+         testimonios elimina la fricción de "pero cuánto cuesta"
+         y permite que los testimonios cierren con más fuerza.
+    ============================================================ -->
+    <section id="precio" class="pricing">
+      <div class="container">
+
+        <span class="section-label">Inversión</span>
+        <h2 class="section-title text-center">
+          Una inversión que se recupera<br>
+          <span class="highlight">con el primer contrato institucional.</span>
+        </h2>
+        <p class="section-subtitle text-center">
+          Transparencia total: aquí están los números. Sin letra chica.
+        </p>
+
+        <div class="pricing__grid">
+
+          <!-- PLAN REGULAR -->
+          <div class="pricing__card">
+            <p class="pricing__plan-label">Precio Regular</p>
+            <div class="pricing__amount-wrap">
+              <span class="pricing__currency">$</span>
+              <span class="pricing__amount">16,650</span>
+              <span class="pricing__mxn">MXN</span>
+            </div>
+            <p class="pricing__installments">o 3 mensualidades de <strong>$5,550</strong></p>
+            <ul class="pricing__list">
+              <li>Certificación EC0052 oficial (RED CONOCER · SEP)</li>
+              <li>Programa híbrido de 12 semanas</li>
+              <li>Material digital completo incluido</li>
+              <li>Registro en el RENAP con folio verificable</li>
+              <li>Acompañamiento de asesores</li>
+              <li>Sesiones teóricas + prácticas con equipo</li>
+            </ul>
+            <a href="https://wa.me/524774095662?text=Hola%20me%20interesa%20inscribirme%20en%20el%20Estandar%20EC0052"
+               class="btn btn--outline"
+               target="_blank" rel="noopener noreferrer">
+              Solicitar información &rarr;
+            </a>
+          </div>
+
+          <!-- PLAN ESPECIAL (destacado) -->
+          <div class="pricing__card pricing__card--featured">
+            <div class="pricing__ribbon">⚡ Primeros 10 inscritos</div>
+            <p class="pricing__plan-label">Precio de Lanzamiento · 17 Junio</p>
+            <div class="pricing__amount-wrap">
+              <span class="pricing__currency">$</span>
+              <span class="pricing__amount">9,990</span>
+              <span class="pricing__mxn">MXN</span>
+            </div>
+            <div class="pricing__savings">Ahorras <strong>$6,660</strong> vs precio regular</div>
+            <p class="pricing__installments">o 3 mensualidades de <strong>$3,330</strong></p>
+            <ul class="pricing__list">
+              <li>Todo lo del precio regular</li>
+              <li><strong>✦ Evaluación diagnóstica gratuita</strong></li>
+              <li><strong>✦ Confirmación inmediata de lugar</strong></li>
+              <li><strong>✦ Acceso prioritario a asesores</strong></li>
+              <li><strong>✦ Precio de lanzamiento irrepetible</strong></li>
+              <li><strong>✦ Solo 10 lugares disponibles</strong></li>
+            </ul>
+            <a href="https://wa.me/524774095662?text=Hola%2C%20quiero%20aprovechar%20el%20precio%20especial%20de%20%249%2C990%20en%20la%20certificaci%C3%B3n%20EC0052"
+               class="btn btn--primary btn--lg pricing__cta"
+               target="_blank" rel="noopener noreferrer">
+              Quiero este precio &rarr;
+            </a>
+            <p class="pricing__note">Sin compromiso &nbsp;·&nbsp; Sin tarjeta de crédito</p>
+          </div>
+
+        </div>
+
+        <!-- GARANTÍA — Inversión con red de seguridad -->
+        <div class="guarantee">
+          <div class="guarantee__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="36" height="36">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <div class="guarantee__content">
+            <h3 class="guarantee__title">Tu certificación garantizada o seguimos contigo sin costo</h3>
+            <p class="guarantee__text">Si cumples con el programa y no logras certificarte en la primera evaluación, continuamos acompañándote hasta que lo consigas. Sin excusas. Sin costos adicionales. Así de seguros estamos de nuestro método.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TESTIMONIOS
+    ============================================================ -->
     <section id="testimonios" class="testimonials">
       <div class="container">
 
@@ -859,10 +1045,9 @@
       </div>
     </section>
 
-
     <!-- ============================================================
-         FAQ — Preguntas frecuentes sobre la certificación para optometristas
-         ============================================================ -->
+         FAQ
+    ============================================================ -->
     <section id="preguntas" class="faq">
       <div class="container">
 
@@ -991,6 +1176,7 @@
               <p>
                 Por eso te decimos esto: antes de inscribirte, pregúntanos exactamente qué organismo
                 avala la certificación, cómo se verifica, y qué casos específicos la aceptan.
+                Si no te convencen las respuestas, no te inscribas. Así de directo somos.
               </p>
             </div>
           </div>
@@ -1001,8 +1187,8 @@
     </section>
 
     <!-- ============================================================
-         CTA FINAL — El 17 de junio arranca la próxima generación
-         ============================================================ -->
+         CTA FINAL
+    ============================================================ -->
     <section id="inscribete" class="cta-final">
       <div class="container">
         <div class="cta-final__inner">
@@ -1052,7 +1238,9 @@
               Quiero apartar mi lugar antes del 17 de junio &rarr;
             </a>
             <p class="cta-final__note">
-              ¿Tienes dudas? Escríbenos por WhatsApp al 477 409 5662 — respondemos en menos de 24 hrs.
+              ¿Tienes dudas? Escríbenos por WhatsApp o llama al
+              <a href="tel:+524774095662" style="color:rgba(255,255,255,0.55);text-decoration:underline;">477 409 5662</a>
+              — respondemos en menos de 24 hrs.
             </p>
           </div>
 
@@ -1080,8 +1268,8 @@
     </section>
 
     <!-- ============================================================
-         UBICACIÓN — Cómo llegar a CECECOB en León, Guanajuato
-         ============================================================ -->
+         UBICACIÓN
+    ============================================================ -->
     <section id="ubicacion" class="location">
       <div class="container">
 
@@ -1100,16 +1288,18 @@
           <div class="location__info">
 
             <div class="location__detail">
-              <div class="location__icon">📍</div>
+              <div class="location__icon" aria-hidden="true">📍</div>
               <div class="location__detail-text">
                 <strong>Dirección</strong>
-                <p>Av. Prolongación Río Mayo 2518, Col. Santo Domingo<br>
-                   León de los Aldama, Gto. C.P. 37557</p>
+                <address>
+                  <p>Av. Prolongación Río Mayo 2518, Col. Santo Domingo<br>
+                     León de los Aldama, Gto. C.P. 37557</p>
+                </address>
               </div>
             </div>
 
             <div class="location__detail">
-              <div class="location__icon">🕐</div>
+              <div class="location__icon" aria-hidden="true">🕐</div>
               <div class="location__detail-text">
                 <strong>Horarios de atención</strong>
                 <div class="location__hours">
@@ -1130,9 +1320,9 @@
             </div>
 
             <div class="location__detail">
-              <div class="location__icon">📱</div>
+              <div class="location__icon" aria-hidden="true">📱</div>
               <div class="location__detail-text">
-                <strong>WhatsApp</strong>
+                <strong>WhatsApp / Teléfono</strong>
                 <a href="https://wa.me/524774095662">477 409 5662</a>
               </div>
             </div>
@@ -1152,11 +1342,11 @@
               <div class="location__form-row">
                 <div class="location__form-group">
                   <label for="nombre">Nombre</label>
-                  <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+                  <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required autocomplete="name">
                 </div>
                 <div class="location__form-group">
                   <label for="correo">Correo</label>
-                  <input type="email" id="correo" name="correo" placeholder="tu@correo.com" required>
+                  <input type="email" id="correo" name="correo" placeholder="tu@correo.com" required autocomplete="email">
                 </div>
               </div>
               <div class="location__form-group">
@@ -1166,32 +1356,31 @@
               <button type="submit" class="btn btn--primary">Enviar mensaje &rarr;</button>
             </form>
 
-          <div class="location__map">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.45!2d-101.6700562!3d21.0921309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bbf511dac9341%3A0x114c55c73e519f48!2sCECECOB!5e0!3m2!1ses!2smx!4v1"
-              width="100%"
-              height="180"
-              style="border:0;"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Ubicación CECECOB - Centro de Certificación en Optometría León Guanajuato">
-            </iframe>
+            <div class="location__map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.45!2d-101.6700562!3d21.0921309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842bbf511dac9341%3A0x114c55c73e519f48!2sCECECOB!5e0!3m2!1ses!2smx!4v1"
+                width="100%"
+                height="180"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Ubicación CECECOB - Centro de Certificación en Optometría León Guanajuato">
+              </iframe>
+            </div>
+
           </div>
 
-          </div><!-- /.location__right -->
-
-        </div><!-- /.location__inner -->
+        </div>
 
       </div>
-    </section>
     </section>
 
   </main>
 
   <!-- ============================================================
        FOOTER
-       ============================================================ -->
+  ============================================================ -->
   <footer class="footer">
     <div class="container footer__inner">
 
@@ -1207,11 +1396,12 @@
       </div>
 
       <!-- Navegación -->
-      <nav class="footer__nav">
+      <nav class="footer__nav" aria-label="Navegación del footer">
         <p class="footer__nav-title">Navegación</p>
         <a href="#te-identificas" class="footer__nav-link">¿Para quién va dirigido?</a>
         <a href="#propuesta" class="footer__nav-link">El programa</a>
         <a href="#proceso" class="footer__nav-link">Cómo funciona</a>
+        <a href="#precio" class="footer__nav-link">Inversión</a>
         <a href="#testimonios" class="footer__nav-link">Testimonios</a>
         <a href="#preguntas" class="footer__nav-link">Preguntas frecuentes</a>
         <a href="#ubicacion" class="footer__nav-link">Ubicación</a>
@@ -1222,6 +1412,7 @@
         <p class="footer__nav-title">Contacto</p>
         <a href="mailto:contacto@cececob.com" class="footer__nav-link">contacto@cececob.com</a>
         <a href="https://wa.me/524774095662" class="footer__nav-link" target="_blank" rel="noopener noreferrer">WhatsApp: 477 409 5662</a>
+        <a href="tel:+524774095662" class="footer__nav-link">Teléfono: 477 409 5662</a>
         <div class="footer__social">
           <a href="https://www.facebook.com/cececob" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Facebook CECECOB">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
@@ -1302,7 +1493,7 @@
         </ul>
 
         <h3>4. Transferencia de datos</h3>
-        <p>Sus datos no serán transferidos a terceros sin su consentimiento, salvo en los casos previstos por el artículo 37 de la LFPDPPP (autoridades competentes, obligaciones legales). En caso de requerir la participación de proveedores de servicios tecnológicos (plataformas de pago, correo electrónico), estos actuarán como encargados y estarán sujetos a obligaciones de confidencialidad.</p>
+        <p>Sus datos no serán transferidos a terceros sin su consentimiento, salvo en los casos previstos por el artículo 37 de la LFPDPPP (autoridades competentes, obligaciones legales).</p>
 
         <h3>5. Derechos ARCO</h3>
         <p>Usted tiene derecho a <strong>Acceder, Rectificar, Cancelar u Oponerse</strong> al tratamiento de sus datos personales (derechos ARCO). Para ejercerlos, envíe una solicitud a <a href="mailto:contacto@cececob.com">contacto@cececob.com</a> indicando: nombre completo, descripción clara del derecho a ejercer y copia de identificación oficial. Responderemos en un plazo máximo de <strong>20 días hábiles</strong>.</p>
@@ -1311,7 +1502,54 @@
         <p>Puede revocar el consentimiento otorgado en cualquier momento, siempre que no exista una obligación legal o contractual que impida hacerlo, mediante el mismo procedimiento indicado para el ejercicio de derechos ARCO.</p>
 
         <h3>7. Uso de cookies y tecnologías de rastreo</h3>
-        <p>Este sitio web puede utilizar cookies de sesión con fines técnicos (por ejemplo, recordar si cerró la barra de promoción). No utilizamos cookies de rastreo publicitario de terceros. Puede desactivar las cookies desde la configuración de su navegador.</p>
+        <p>Este sitio utiliza exclusivamente <strong>cookies técnicas esenciales</strong> necesarias para su funcionamiento. No empleamos cookies de seguimiento publicitario, perfilado de usuarios ni tecnologías de rastreo de terceros con fines comerciales, en apego al artículo 1 de la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong> y los Lineamientos del Aviso de Privacidad emitidos por el INAI.</p>
+
+        <h4>Cookies utilizadas en este sitio</h4>
+        <div class="privacy-table-wrap">
+          <table class="privacy-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Duración</th>
+                <th>Finalidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>cececob_cookies</code></td>
+                <td>localStorage (propio)</td>
+                <td>Persistente</td>
+                <td>Guarda la elección del usuario respecto al aviso de cookies para no mostrarlo en visitas posteriores.</td>
+              </tr>
+              <tr>
+                <td><code>promoClosed</code></td>
+                <td>sessionStorage (propio)</td>
+                <td>Sesión</td>
+                <td>Recuerda si el usuario cerró la barra de promoción durante la sesión activa.</td>
+              </tr>
+              <tr>
+                <td><code>exitShown</code></td>
+                <td>sessionStorage (propio)</td>
+                <td>Sesión</td>
+                <td>Evita mostrar más de una vez el mensaje de salida durante la misma sesión de navegación.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Tecnologías de terceros</h4>
+        <p><strong>Google Maps:</strong> La sección de ubicación incluye un mapa embebido de Google Maps. Al cargar esta sección, Google puede establecer sus propias cookies conforme a su <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidad</a>.</p>
+        <p><strong>Google Fonts:</strong> Este sitio carga la tipografía Inter desde los servidores de Google Fonts. Google puede registrar la dirección IP del visitante al servir los archivos de fuentes. Consulte la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidad de Google</a>.</p>
+
+        <h4>Gestión de cookies desde su navegador</h4>
+        <ul>
+          <li><strong>Chrome:</strong> Ajustes → Privacidad y seguridad → Cookies y otros datos de sitios</li>
+          <li><strong>Firefox:</strong> Opciones → Privacidad y seguridad → Cookies y datos del sitio</li>
+          <li><strong>Safari:</strong> Preferencias → Privacidad → Gestionar datos del sitio web</li>
+          <li><strong>Edge:</strong> Configuración → Privacidad, búsqueda y servicios → Cookies</li>
+        </ul>
+        <p>Puede retirar su consentimiento en cualquier momento eliminando los datos guardados en su navegador o contactándonos en <a href="mailto:contacto@cececob.com">contacto@cececob.com</a>.</p>
 
         <h3>8. Cambios al aviso de privacidad</h3>
         <p>Cualquier modificación a este aviso será notificada a través de este mismo sitio web. Le recomendamos consultarlo periódicamente.</p>
@@ -1322,7 +1560,21 @@
       </div>
     </div>
   </div>
-  <!-- ===================================================================== -->
+
+  <!-- ══════════════════════ COOKIE CONSENT BANNER ══════════════════════ -->
+  <div class="cookie-banner hidden" id="cookieBanner" role="dialog" aria-label="Aviso de cookies" aria-live="polite">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__icon" aria-hidden="true">🍪</div>
+      <div class="cookie-banner__text">
+        <strong>Usamos cookies técnicas</strong> para mejorar tu experiencia en este sitio. No utilizamos cookies publicitarias ni de rastreo de terceros.
+        <button class="cookie-banner__link" id="cookiePrivacyLink" type="button">Ver Aviso de Privacidad</button>
+      </div>
+      <div class="cookie-banner__actions">
+        <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAcceptAll" type="button">Aceptar todo</button>
+        <button class="cookie-banner__btn cookie-banner__btn--essential" id="cookieEssentialOnly" type="button">Solo esenciales</button>
+      </div>
+    </div>
+  </div>
 
   <script src="assets/js/main.js"></script>
 

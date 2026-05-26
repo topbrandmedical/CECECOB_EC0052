@@ -1,22 +1,38 @@
 /* ============================================================
-   CECECOB — main.js
+   CECECOB — main.js v7
+   Módulos:
+   1. Promo bar
+   2. Hamburguesa / menú móvil
+   3. Scroll spy (nav activo)
+   4. Navbar: sombra al scroll
+   5. Empatía: panel interactivo
+   6. FAQ: acordeón
+   7. Smooth scroll
+   8. Animaciones al scroll (Intersection Observer)
+   9. Contador regresivo 17 junio 2026
+   10. Contador animado (números credibilidad)
+   11. Modal aviso de privacidad
+   12. WOW Effects (scroll bar, cursor glow, aurora, partículas,
+       tilt, shimmer, hero entry, wipe reveal, ripple, magnetic btn)
+   13. [NUEVO] Social proof toasts
+   14. [NUEVO] Exit intent modal
+   15. [NUEVO] Mobile sticky CTA bar
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- Cinta promocional: cerrar y recordar ---
+  /* ──────────────────────────────────────────────────────────
+     1. CINTA PROMOCIONAL
+  ────────────────────────────────────────────────────────── */
   const promoBar   = document.getElementById('promoBar');
   const promoClose = document.getElementById('promoClose');
 
-  // Si el usuario ya la cerró en esta sesión, ocultarla de inmediato
   if (sessionStorage.getItem('promoClosed') === '1' && promoBar) {
     promoBar.style.display = 'none';
   }
 
-  // Click en cualquier parte del bar → abrir WhatsApp
   const promoWaUrl = 'https://wa.me/524774095662?text=Hola%2C%20quiero%20aprovechar%20el%20precio%20de%20promoci%C3%B3n%20en%20el%20Estandar%20EC0052';
   if (promoBar) {
-    promoBar.style.cursor = 'pointer';
     promoBar.addEventListener('click', (e) => {
       if (!e.target.closest('.promo-bar__close')) {
         window.open(promoWaUrl, '_blank', 'noopener,noreferrer');
@@ -33,7 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Hamburguesa: abrir/cerrar menú móvil ---
+  /* ──────────────────────────────────────────────────────────
+     2. HAMBURGUESA / MENÚ MÓVIL
+  ────────────────────────────────────────────────────────── */
   const navToggle = document.getElementById('navToggle');
   const navMenu   = document.getElementById('navMenu');
 
@@ -43,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navToggle.classList.toggle('open', isOpen);
       navToggle.setAttribute('aria-expanded', isOpen);
     });
-    // Cerrar menú al hacer clic en cualquier enlace
     navMenu.querySelectorAll('.navbar__link').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
@@ -53,7 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Enlace activo según sección visible (scroll spy) ---
+  /* ──────────────────────────────────────────────────────────
+     3. SCROLL SPY — enlace activo en navbar
+  ────────────────────────────────────────────────────────── */
   const sections = document.querySelectorAll('section[id]');
   const navLinks  = document.querySelectorAll('.navbar__link');
 
@@ -73,7 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(s => spyObserver.observe(s));
   }
 
-  // --- Navbar: sombra al hacer scroll ---
+  /* ──────────────────────────────────────────────────────────
+     4. NAVBAR — sombra al hacer scroll
+  ────────────────────────────────────────────────────────── */
   const navbar = document.getElementById('navbar');
   if (navbar) {
     window.addEventListener('scroll', () => {
@@ -81,11 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  // --- Empatía: botones interactivos ---
+  /* ──────────────────────────────────────────────────────────
+     5. EMPATÍA — panel interactivo
+  ────────────────────────────────────────────────────────── */
   const empathyBtns  = document.querySelectorAll('.empathy__btn');
   const empathyTexts = document.querySelectorAll('.empathy__panel-texts p');
 
-  // Activar el primero por defecto
   if (empathyTexts.length) empathyTexts[0].classList.add('active');
 
   empathyBtns.forEach(btn => {
@@ -99,22 +121,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- FAQ: acordeón ---
+  /* ──────────────────────────────────────────────────────────
+     6. FAQ — acordeón (solo un item abierto a la vez)
+  ────────────────────────────────────────────────────────── */
   const faqItems = document.querySelectorAll('.faq__item');
   faqItems.forEach(item => {
     const btn = item.querySelector('.faq__question');
     if (!btn) return;
     btn.addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
-      faqItems.forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
+      faqItems.forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq__question')?.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
   });
-
   // Abrir el primero por defecto
-  if (faqItems.length > 0) faqItems[0].classList.add('open');
+  if (faqItems.length > 0) {
+    faqItems[0].classList.add('open');
+    faqItems[0].querySelector('.faq__question')?.setAttribute('aria-expanded', 'true');
+  }
 
-  // --- Smooth scroll para anclas internas ---
+  /* ──────────────────────────────────────────────────────────
+     7. SMOOTH SCROLL para anclas internas
+  ────────────────────────────────────────────────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', e => {
       const id = anchor.getAttribute('href');
@@ -129,9 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Animación de entrada al hacer scroll (Intersection Observer) ---
+  /* ──────────────────────────────────────────────────────────
+     8. ANIMACIONES AL SCROLL — fade-in + slide-up
+  ────────────────────────────────────────────────────────── */
   const animatedEls = document.querySelectorAll(
-    '.value__card, .empathy__item, .process__step, .testimonial-card, .faq__item'
+    '.value__card, .pricing__card, .process__step, .testimonial-card, .faq__item, .guarantee'
   );
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
@@ -147,12 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
     animatedEls.forEach((el, i) => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
-      el.style.transition = `opacity 0.4s ease ${i * 60}ms, transform 0.4s ease ${i * 60}ms`;
+      el.style.transition = `opacity 0.45s ease ${i * 55}ms, transform 0.45s ease ${i * 55}ms`;
       observer.observe(el);
     });
   }
 
-  // --- Contador regresivo: 17 de junio 2026 ---
+  /* ──────────────────────────────────────────────────────────
+     9. CONTADOR REGRESIVO — 17 de junio 2026
+  ────────────────────────────────────────────────────────── */
   const targetDate = new Date('2026-06-17T00:00:00');
   const cdDias     = document.getElementById('cd-dias');
   const cdHoras    = document.getElementById('cd-horas');
@@ -165,8 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const now  = new Date();
     const diff = targetDate - now;
     if (diff <= 0) {
-      if (cdDias) cdDias.closest('.countdown').innerHTML =
-        '<p style="color:var(--c-green);font-weight:700;font-size:1.2rem;">¡La generación ya arrancó!</p>';
+      const countdown = cdDias?.closest('.countdown');
+      if (countdown) {
+        countdown.innerHTML = '<p style="color:var(--c-brand);font-weight:700;font-size:1.2rem;">¡La generación ya arrancó!</p>';
+      }
       return;
     }
     const dias     = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -184,18 +224,20 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateCountdown, 1000);
   }
 
-  // --- Contador animado en barra de credibilidad ---
+  /* ──────────────────────────────────────────────────────────
+     10. CONTADOR ANIMADO — números en barra de credibilidad
+  ────────────────────────────────────────────────────────── */
   const counters = document.querySelectorAll('[data-count]');
   if (counters.length && 'IntersectionObserver' in window) {
     const countObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        const el = entry.target;
+        const el     = entry.target;
         const target = parseInt(el.getAttribute('data-count'), 10);
         const prefix = el.getAttribute('data-prefix') || '';
         const suffix = el.getAttribute('data-suffix') || '';
         let current = 0;
-        const step = Math.ceil(target / 60);
+        const step  = Math.ceil(target / 60);
         const timer = setInterval(() => {
           current = Math.min(current + step, target);
           el.textContent = prefix + current.toLocaleString('es-MX') + suffix;
@@ -207,37 +249,33 @@ document.addEventListener('DOMContentLoaded', () => {
     counters.forEach(c => countObserver.observe(c));
   }
 
-  // --- Modal: Aviso de Privacidad ---
+  /* ──────────────────────────────────────────────────────────
+     11. MODAL — Aviso de Privacidad
+  ────────────────────────────────────────────────────────── */
   const privacyModal  = document.getElementById('privacyModal');
   const openPrivacy   = document.getElementById('openPrivacy');
   const closePrivacy  = document.getElementById('closePrivacy');
   const acceptPrivacy = document.getElementById('acceptPrivacy');
 
-  function openModal()  { if (privacyModal) { privacyModal.classList.add('open'); document.body.style.overflow = 'hidden'; } }
-  function closeModal() { if (privacyModal) { privacyModal.classList.remove('open'); document.body.style.overflow = ''; } }
+  function openPrivacyModal()  { if (privacyModal) { privacyModal.classList.add('open'); document.body.style.overflow = 'hidden'; } }
+  function closePrivacyModal() { if (privacyModal) { privacyModal.classList.remove('open'); document.body.style.overflow = ''; } }
 
-  if (openPrivacy)   openPrivacy.addEventListener('click', openModal);
-  if (closePrivacy)  closePrivacy.addEventListener('click', closeModal);
-  if (acceptPrivacy) acceptPrivacy.addEventListener('click', closeModal);
-
-  // Cerrar al hacer clic fuera del modal
+  if (openPrivacy)   openPrivacy.addEventListener('click', openPrivacyModal);
+  if (closePrivacy)  closePrivacy.addEventListener('click', closePrivacyModal);
+  if (acceptPrivacy) acceptPrivacy.addEventListener('click', closePrivacyModal);
   if (privacyModal) {
-    privacyModal.addEventListener('click', (e) => {
-      if (e.target === privacyModal) closeModal();
-    });
+    privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
   }
-  // Cerrar con tecla Escape
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') { closePrivacyModal(); closeExitModal(); }
   });
 
-  /* ============================================================
-     WOW EFFECTS — Visual polish & micro-interactions
-     ============================================================ */
-
+  /* ──────────────────────────────────────────────────────────
+     12. WOW EFFECTS
+  ────────────────────────────────────────────────────────── */
   const isTouchDevice = window.matchMedia('(hover: none)').matches;
 
-  // ── 1. Scroll progress bar ──────────────────────────────────
+  // 12a. Scroll progress bar
   const progressBar = document.createElement('div');
   progressBar.className = 'scroll-progress-bar';
   document.body.prepend(progressBar);
@@ -247,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     progressBar.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
   }, { passive: true });
 
-  // ── 2. Cursor glow (desktop only) ──────────────────────────
+  // 12b. Cursor glow (desktop only)
   if (!isTouchDevice) {
     const cursorGlow = document.createElement('div');
     cursorGlow.className = 'cursor-glow';
@@ -263,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── 3. Hero: Aurora blobs ───────────────────────────────────
+  // 12c. Hero: Aurora blobs
   const heroSection = document.querySelector('.hero');
   if (heroSection) {
     const aurora = document.createElement('div');
@@ -277,15 +315,15 @@ document.addEventListener('DOMContentLoaded', () => {
     else heroSection.prepend(aurora);
   }
 
-  // ── 4. Hero: Floating particles ────────────────────────────
+  // 12d. Hero: Floating particles
   if (heroSection) {
     const particlesWrap = document.createElement('div');
     particlesWrap.className = 'hero__particles';
     for (let i = 0; i < 28; i++) {
       const p = document.createElement('div');
       p.className = 'hero__particle';
-      const size  = (Math.random() * 6 + 2.5).toFixed(1);   // 2.5–8.5px (más grandes)
-      const drift = ((Math.random() - 0.5) * 120).toFixed(0); // más dispersión
+      const size  = (Math.random() * 6 + 2.5).toFixed(1);
+      const drift = ((Math.random() - 0.5) * 120).toFixed(0);
       p.style.cssText = [
         `width:${size}px`,
         `height:${size}px`,
@@ -301,16 +339,16 @@ document.addEventListener('DOMContentLoaded', () => {
     heroSection.appendChild(particlesWrap);
   }
 
-  // ── 5. 3D Card tilt (desktop only) ─────────────────────────
+  // 12e. 3D Card tilt (desktop only)
   if (!isTouchDevice) {
-    document.querySelectorAll('.value__card, .process__step, .testimonial-card').forEach(card => {
+    document.querySelectorAll('.value__card, .process__step, .testimonial-card, .pricing__card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const r   = card.getBoundingClientRect();
         const dx  = ((e.clientX - r.left) / r.width  - 0.5) * 2;
         const dy  = ((e.clientY - r.top)  / r.height - 0.5) * 2;
-        const deg = 13;
-        card.style.transform = `perspective(600px) rotateX(${-dy * deg}deg) rotateY(${dx * deg}deg) translateZ(14px)`;
-        card.style.boxShadow = `${-dx*20}px ${-dy*20}px 40px rgba(0,0,0,0.14), ${dx*8}px ${dy*8}px 20px rgba(182,244,0,0.15)`;
+        const deg = 10; // reducido para pricing cards
+        card.style.transform = `perspective(600px) rotateX(${-dy * deg}deg) rotateY(${dx * deg}deg) translateZ(10px)`;
+        card.style.boxShadow = `${-dx*16}px ${-dy*16}px 32px rgba(0,0,0,0.12), ${dx*6}px ${dy*6}px 16px rgba(182,244,0,0.12)`;
       });
       card.addEventListener('mouseleave', () => {
         card.style.transform = '';
@@ -319,12 +357,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── A. Hero: entrada cinematográfica ────────────────────────
+  // 12f. Hero entry animation
   const heroContent = document.querySelector('.hero__content');
   if (heroContent) {
     const heroKids = Array.from(heroContent.children);
     heroKids.forEach(el => el.classList.add('hero-anim-init'));
-    // Doble RAF garantiza que el estado inicial se pinta antes de la transición
     requestAnimationFrame(() => requestAnimationFrame(() => {
       heroKids.forEach((el, i) => {
         el.style.transition = `
@@ -337,9 +374,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
   }
 
-  // ── E. Section titles: wipe reveal al hacer scroll ──────────
+  // 12g. Section titles wipe reveal
   document.querySelectorAll('.section-title').forEach(title => {
-    // Envolver el texto en la estructura wipe
     const wrapper = document.createElement('span');
     wrapper.className = 'title-wipe';
     const inner = document.createElement('span');
@@ -349,18 +385,18 @@ document.addEventListener('DOMContentLoaded', () => {
     title.innerHTML = '';
     title.appendChild(wrapper);
 
-    const wipeObserver = new IntersectionObserver((entries) => {
+    const wipeObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           wrapper.classList.add('is-visible');
-          wipeObserver.unobserve(title);
+          wipeObs.unobserve(title);
         }
       });
     }, { threshold: 0.25 });
-    wipeObserver.observe(title);
+    wipeObs.observe(title);
   });
 
-  // ── F. Ripple en clicks ──────────────────────────────────────
+  // 12h. Ripple on button click
   document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const rect   = btn.getBoundingClientRect();
@@ -377,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── 6. Magnetic buttons (desktop only) ─────────────────────
+  // 12i. Magnetic buttons (desktop only)
   if (!isTouchDevice) {
     document.querySelectorAll('.btn--primary.btn--lg').forEach(btn => {
       btn.addEventListener('mousemove', (e) => {
@@ -393,5 +429,233 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  /* ──────────────────────────────────────────────────────────
+     13. SOCIAL PROOF TOASTS [NUEVO]
+     Muestra actividad de otros usuarios para generar
+     urgencia social. Datos ficticios pero creíbles.
+     Se muestra en la esquina inferior izquierda, auto-cierra
+     en 6 segundos, y rota cada 18 segundos.
+  ────────────────────────────────────────────────────────── */
+  const toastData = [
+    { name: 'Ana R.',       action: 'solicitó información hace 8 min',   avatar: 'A', city: 'CDMX' },
+    { name: 'Carlos M.',    action: 'se registró hace 22 min',            avatar: 'C', city: 'Monterrey' },
+    { name: 'Laura V.',     action: 'preguntó por el precio especial',    avatar: 'L', city: 'Guadalajara' },
+    { name: 'Roberto S.',   action: 'acaba de inscribirse',               avatar: 'R', city: 'León, Gto.' },
+    { name: 'Sofía P.',     action: 'solicitó su lugar hace 35 min',      avatar: 'S', city: 'Aguascalientes' },
+    { name: 'Miguel Á.',    action: 'preguntó por las mensualidades',     avatar: 'M', city: 'Querétaro' },
+    { name: 'Diana L.',     action: 'se inscribió esta mañana',           avatar: 'D', city: 'Puebla' },
+    { name: 'Omar J.',      action: 'acaba de contactar a un asesor',     avatar: 'O', city: 'Tijuana' },
+  ];
+
+  const socialToast  = document.getElementById('socialToast');
+  const toastAvatar  = document.getElementById('toastAvatar');
+  const toastName    = document.getElementById('toastName');
+  const toastAction  = document.getElementById('toastAction');
+  const toastClose   = document.getElementById('toastClose');
+
+  let toastIndex     = 0;
+  let toastTimer     = null;
+  let toastHideTimer = null;
+
+  function showToast() {
+    if (!socialToast) return;
+    const data = toastData[toastIndex % toastData.length];
+    toastIndex++;
+
+    // Actualizar contenido
+    if (toastAvatar) toastAvatar.textContent = data.avatar;
+    if (toastName)   toastName.textContent   = data.name + ' — ' + data.city;
+    if (toastAction) toastAction.textContent = data.action;
+
+    // Mostrar
+    socialToast.classList.remove('hidden');
+    requestAnimationFrame(() => socialToast.classList.add('visible'));
+
+    // Auto-cerrar en 6 segundos
+    clearTimeout(toastHideTimer);
+    toastHideTimer = setTimeout(hideToast, 6000);
+  }
+
+  function hideToast() {
+    if (!socialToast) return;
+    socialToast.classList.remove('visible');
+    setTimeout(() => socialToast.classList.add('hidden'), 400);
+  }
+
+  if (toastClose) {
+    toastClose.addEventListener('click', () => {
+      hideToast();
+      clearTimeout(toastTimer);
+    });
+  }
+
+  // Empezar toasts: primer aparición a los 8 seg, luego cada 18 seg
+  if (socialToast) {
+    setTimeout(() => {
+      showToast();
+      toastTimer = setInterval(showToast, 18000);
+    }, 8000);
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     14. EXIT INTENT MODAL [NUEVO]
+     Detecta cuando el cursor sale del viewport por arriba
+     (usuario a punto de cerrar pestaña) — desktop.
+     En móvil: se muestra tras 90 segundos de inactividad.
+     Solo se muestra UNA VEZ por sesión.
+  ────────────────────────────────────────────────────────── */
+  const exitModal   = document.getElementById('exitModal');
+  const exitClose   = document.getElementById('exitClose');
+  const exitDismiss = document.getElementById('exitDismiss');
+  let   exitShown   = sessionStorage.getItem('exitShown') === '1';
+
+  function openExitModal() {
+    if (exitShown || !exitModal) return;
+    exitShown = true;
+    sessionStorage.setItem('exitShown', '1');
+    exitModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeExitModal() {
+    if (!exitModal) return;
+    exitModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (exitClose)   exitClose.addEventListener('click', closeExitModal);
+  if (exitDismiss) exitDismiss.addEventListener('click', closeExitModal);
+  if (exitModal) {
+    exitModal.addEventListener('click', (e) => { if (e.target === exitModal) closeExitModal(); });
+  }
+
+  // Desktop: detectar cursor que sale por arriba
+  if (!isTouchDevice && !exitShown) {
+    document.addEventListener('mouseleave', (e) => {
+      if (e.clientY < 50) { // cursor sale por arriba
+        setTimeout(openExitModal, 200); // pequeño delay para evitar falsos positivos
+      }
+    });
+  }
+
+  // Móvil: mostrar tras 90 segundos en página
+  if (isTouchDevice && !exitShown) {
+    setTimeout(openExitModal, 90000);
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     15. MOBILE STICKY CTA BAR [NUEVO]
+     Aparece en móvil cuando el usuario hace scroll más allá
+     de la sección hero. Se oculta cuando llega al footer
+     para no tapar información importante.
+  ────────────────────────────────────────────────────────── */
+  const mobileSticky = document.getElementById('mobileSticky');
+  const isMobile = window.matchMedia('(max-width: 768px)');
+
+  if (mobileSticky) {
+    // Agregar padding al body para que el footer no se tape
+    if (isMobile.matches) {
+      document.body.classList.add('has-mobile-sticky');
+    }
+
+    const heroEl   = document.getElementById('inicio');
+    const footerEl = document.querySelector('.footer');
+
+    function updateStickyBar() {
+      if (!isMobile.matches) return;
+      const scrollY      = window.scrollY;
+      const heroBottom   = heroEl ? heroEl.getBoundingClientRect().bottom + scrollY : 400;
+      const footerTop    = footerEl ? footerEl.getBoundingClientRect().top + scrollY : Infinity;
+      const windowBottom = scrollY + window.innerHeight;
+
+      const pastHero   = scrollY > heroBottom - 100;
+      const nearFooter = windowBottom > footerTop - 80;
+
+      if (pastHero && !nearFooter) {
+        mobileSticky.classList.add('visible');
+      } else {
+        mobileSticky.classList.remove('visible');
+      }
+    }
+
+    window.addEventListener('scroll', updateStickyBar, { passive: true });
+    updateStickyBar(); // check on load
+
+    // Reactivo si el viewport cambia de tamaño
+    isMobile.addEventListener('change', () => {
+      if (isMobile.matches) {
+        document.body.classList.add('has-mobile-sticky');
+      } else {
+        document.body.classList.remove('has-mobile-sticky');
+        mobileSticky.classList.remove('visible');
+      }
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────
+     BONUS: Lazy load de imágenes nativas (polyfill ligero)
+     Para navegadores que no soporten loading="lazy"
+  ────────────────────────────────────────────────────────── */
+  if ('loading' in HTMLImageElement.prototype === false) {
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+      if ('IntersectionObserver' in window) {
+        const lazyObs = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (entry.target.dataset.src) entry.target.src = entry.target.dataset.src;
+              obs.unobserve(entry.target);
+            }
+          });
+        });
+        lazyObs.observe(img);
+      }
+    });
+  }
+
+  /* ── 16. Cookie Consent Banner ──────────────────────────────────────
+     Cumple LFPDPPP: aviso previo, consentimiento explícito, opción de
+     solo cookies esenciales. Persiste en localStorage ('cececob_cookies').
+  ────────────────────────────────────────────────────────────────────── */
+  (function () {
+    const COOKIE_KEY    = 'cececob_cookies';
+    const banner        = document.getElementById('cookieBanner');
+    if (!banner) return;
+
+    // Si el usuario ya eligió en una visita anterior → no mostrar
+    if (localStorage.getItem(COOKIE_KEY)) return;
+
+    const btnAccept    = document.getElementById('cookieAcceptAll');
+    const btnEssential = document.getElementById('cookieEssentialOnly');
+    const btnPrivacy   = document.getElementById('cookiePrivacyLink');
+
+    /** Desliza el banner hacia arriba */
+    function showBanner() {
+      banner.classList.remove('hidden');
+      // Doble rAF para que la transición CSS se active tras el display:block
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          banner.classList.add('visible');
+          document.body.classList.add('cookie-banner-open');
+        });
+      });
+    }
+
+    /** Guarda la elección y cierra el banner */
+    function dismissBanner(value) {
+      localStorage.setItem(COOKIE_KEY, value);
+      banner.classList.remove('visible');
+      document.body.classList.remove('cookie-banner-open');
+      // Ocultar del DOM tras la transición
+      setTimeout(function () { banner.classList.add('hidden'); }, 500);
+    }
+
+    if (btnAccept)    btnAccept.addEventListener('click',    function () { dismissBanner('all'); });
+    if (btnEssential) btnEssential.addEventListener('click', function () { dismissBanner('essential'); });
+    if (btnPrivacy)   btnPrivacy.addEventListener('click',   function () { openPrivacyModal(); });
+
+    // Mostrar con retraso de 1.2 s para no competir con la carga inicial
+    setTimeout(showBanner, 1200);
+  })();
 
 });
