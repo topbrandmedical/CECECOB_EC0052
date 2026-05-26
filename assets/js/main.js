@@ -651,18 +651,19 @@ document.addEventListener('DOMContentLoaded', () => {
     exitModal.addEventListener('click', (e) => { if (e.target === exitModal) closeExitModal(); });
   }
 
-  // Desktop: detectar cursor que sale por arriba
+  // Desktop: detectar cursor que sale por arriba del viewport
   if (!isTouchDevice && !exitShown) {
     document.addEventListener('mouseleave', (e) => {
-      if (e.clientY < 50) { // cursor sale por arriba
-        setTimeout(openExitModal, 200); // pequeño delay para evitar falsos positivos
+      if (e.clientY < 50) {
+        setTimeout(openExitModal, 200);
       }
     });
   }
 
-  // Móvil: mostrar tras 90 segundos en página
-  if (isTouchDevice && !exitShown) {
-    setTimeout(openExitModal, 90000);
+  // Todos los dispositivos: timer de respaldo a los 40 segundos
+  // Garantiza que el modal aparezca aunque el mouseleave no dispare
+  if (!exitShown) {
+    setTimeout(openExitModal, 40000);
   }
 
   /* ──────────────────────────────────────────────────────────
