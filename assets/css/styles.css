@@ -426,62 +426,6 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
 }
 .exit-modal__dismiss:hover { color: var(--c-text-muted); }
 
-/* ============================================================
-   MOBILE STICKY BAR
-   Solo visible en mobile (≤ 768px), aparece al hacer scroll
-   más allá del hero. El #1 elemento de conversión móvil.
-   ============================================================ */
-.mobile-sticky {
-  display: none; /* JS lo muestra en mobile */
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 9000;
-  background: var(--c-dark);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding: 10px 16px;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom));
-  gap: 10px;
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-}
-.mobile-sticky.visible {
-  transform: translateY(0);
-}
-.mobile-sticky__call,
-.mobile-sticky__whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex: 1;
-  padding: 12px 16px;
-  border-radius: var(--r-md);
-  font-size: 0.92rem;
-  font-weight: 700;
-  transition: all var(--t-normal);
-}
-.mobile-sticky__call {
-  background: rgba(255,255,255,0.08);
-  color: var(--c-white);
-  border: 1px solid rgba(255,255,255,0.15);
-}
-.mobile-sticky__call:hover { background: rgba(255,255,255,0.15); }
-.mobile-sticky__whatsapp {
-  background: var(--c-btn);
-  color: var(--c-white);
-  flex: 1.6; /* botón WhatsApp más ancho — acción primaria */
-}
-.mobile-sticky__whatsapp:hover {
-  background: var(--c-btn-hover);
-  box-shadow: 0 4px 16px rgba(37,211,102,0.4);
-}
-
-/* Padding al body en móvil para que el footer no se tape */
-@media (max-width: 768px) {
-  body.has-mobile-sticky {
-    padding-bottom: 72px;
-  }
-}
 
 /* ============================================================
    CINTA PROMOCIONAL
@@ -2458,9 +2402,6 @@ p  { color: var(--c-text-muted); line-height: 1.75; }
    RESPONSIVE — Móvil (≤ 768px) — Mobile sticky bar
    ============================================================ */
 @media (max-width: 768px) {
-  /* Activar la barra sticky móvil */
-  .mobile-sticky { display: flex; }
-
   /* Deshabilitar parallax (perf en móvil) */
   .testimonials, .faq, .location { background-attachment: scroll; }
 }

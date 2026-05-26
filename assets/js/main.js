@@ -666,54 +666,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(openExitModal, 40000);
   }
 
-  /* ──────────────────────────────────────────────────────────
-     15. MOBILE STICKY CTA BAR [NUEVO]
-     Aparece en móvil cuando el usuario hace scroll más allá
-     de la sección hero. Se oculta cuando llega al footer
-     para no tapar información importante.
-  ────────────────────────────────────────────────────────── */
-  const mobileSticky = document.getElementById('mobileSticky');
-  const isMobile = window.matchMedia('(max-width: 768px)');
-
-  if (mobileSticky) {
-    // Agregar padding al body para que el footer no se tape
-    if (isMobile.matches) {
-      document.body.classList.add('has-mobile-sticky');
-    }
-
-    const heroEl   = document.getElementById('inicio');
-    const footerEl = document.querySelector('.footer');
-
-    function updateStickyBar() {
-      if (!isMobile.matches) return;
-      const scrollY      = window.scrollY;
-      const heroBottom   = heroEl ? heroEl.getBoundingClientRect().bottom + scrollY : 400;
-      const footerTop    = footerEl ? footerEl.getBoundingClientRect().top + scrollY : Infinity;
-      const windowBottom = scrollY + window.innerHeight;
-
-      const pastHero   = scrollY > heroBottom - 100;
-      const nearFooter = windowBottom > footerTop - 80;
-
-      if (pastHero && !nearFooter) {
-        mobileSticky.classList.add('visible');
-      } else {
-        mobileSticky.classList.remove('visible');
-      }
-    }
-
-    window.addEventListener('scroll', updateStickyBar, { passive: true });
-    updateStickyBar(); // check on load
-
-    // Reactivo si el viewport cambia de tamaño
-    isMobile.addEventListener('change', () => {
-      if (isMobile.matches) {
-        document.body.classList.add('has-mobile-sticky');
-      } else {
-        document.body.classList.remove('has-mobile-sticky');
-        mobileSticky.classList.remove('visible');
-      }
-    });
-  }
 
   /* ──────────────────────────────────────────────────────────
      BONUS: Lazy load de imágenes nativas (polyfill ligero)
