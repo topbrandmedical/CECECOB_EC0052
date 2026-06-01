@@ -660,10 +660,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Todos los dispositivos: timer de respaldo a los 40 segundos
-  // Garantiza que el modal aparezca aunque el mouseleave no dispare
+  // Todos los dispositivos: timer a los 3 minutos
+  // Da tiempo de leer la página antes de mostrar la oferta
   if (!exitShown) {
-    setTimeout(openExitModal, 40000);
+    setTimeout(openExitModal, 180000);
   }
 
 
