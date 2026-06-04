@@ -732,4 +732,62 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(showBanner, 1200);
   })();
 
+  /* ── 17. POPUP GRACIAS — Formulario de contacto ─────────────────────
+     Intercepta el submit, envía via fetch a Web3Forms y muestra
+     el modal de gracias en lugar de redirigir.
+  ────────────────────────────────────────────────────────────────────── */
+  (function () {
+    const form         = document.querySelector('.location__form');
+    const thanksModal  = document.getElementById('thanksModal');
+    const thanksClose  = document.getElementById('thanksClose');
+    const thanksDismiss= document.getElementById('thanksDismiss');
+    const submitBtn    = form ? form.querySelector('[type="submit"]') : null;
+
+    function openThanks() {
+      if (!thanksModal) return;
+      thanksModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeThanks() {
+      if (!thanksModal) return;
+      thanksModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    if (thanksClose)   thanksClose.addEventListener('click',   closeThanks);
+    if (thanksDismiss) thanksDismiss.addEventListener('click', closeThanks);
+    if (thanksModal)   thanksModal.addEventListener('click', function(e) {
+      if (e.target === thanksModal) closeThanks();
+    });
+
+    if (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        // Deshabilitar botón mientras envía
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Enviando…'; }
+
+        try {
+          const data     = new FormData(form);
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body:   data
+          });
+          const result   = await response.json();
+
+          if (result.success) {
+            form.reset();
+            openThanks();
+          } else {
+            alert('Hubo un error al enviar. Por favor intenta de nuevo.');
+          }
+        } catch (err) {
+          alert('Error de conexión. Por favor intenta de nuevo.');
+        } finally {
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Enviar mensaje →'; }
+        }
+      });
+    }
+  })();
+
 });

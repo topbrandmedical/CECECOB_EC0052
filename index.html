@@ -242,7 +242,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
   </noscript>
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=18">
+  <link rel="stylesheet" href="assets/css/styles.css?v=19">
 
   <!-- Meta Pixel Code -->
   <script>
@@ -1333,7 +1333,7 @@
               <input type="hidden" name="access_key" value="feff5f32-b93a-460e-bd61-df707039ee4b">
               <input type="hidden" name="subject" value="Nuevo contacto desde CECECOB EC0052">
               <input type="hidden" name="from_name" value="Landing CECECOB">
-              <input type="hidden" name="redirect" value="https://www.cececob.com">
+              <input type="hidden" name="redirect" value="false">
               <input type="checkbox" name="botcheck" style="display:none;">
               <div class="location__form-row">
                 <div class="location__form-group">
@@ -1576,7 +1576,24 @@
     </div>
   </div>
 
-  <script src="assets/js/main.js?v=18"></script>
+  <!-- ══════════════════════ POPUP GRACIAS (formulario) ══════════════════════ -->
+  <div class="exit-overlay" id="thanksModal" role="dialog" aria-modal="true" aria-labelledby="thanksTitle">
+    <div class="exit-modal__card thanks-modal__card">
+      <button class="exit-modal__close" id="thanksClose" aria-label="Cerrar">✕</button>
+      <div class="thanks-modal__icon">✅</div>
+      <span class="exit-modal__eyebrow">¡Mensaje recibido!</span>
+      <h2 class="exit-modal__title" id="thanksTitle">Nos ponemos en contacto<br>contigo muy pronto</h2>
+      <p class="exit-modal__body">Revisaremos tu mensaje y te contactaremos por WhatsApp a la brevedad. Si prefieres hablar ahora mismo, escríbenos directo.</p>
+      <a href="https://wa.me/524774095662?text=Hola%2C%20acabo%20de%20enviar%20un%20mensaje%20desde%20la%20p%C3%A1gina%20web%20y%20quiero%20saber%20m%C3%A1s%20sobre%20la%20certificaci%C3%B3n%20EC0052"
+         class="btn btn--primary" target="_blank" rel="noopener noreferrer"
+         style="width:100%;justify-content:center;margin-top:8px;">
+        Escribir por WhatsApp ahora →
+      </a>
+      <button class="exit-modal__dismiss" id="thanksDismiss" style="margin-top:12px;">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js?v=19"></script>
 
 </body>
 </html>
