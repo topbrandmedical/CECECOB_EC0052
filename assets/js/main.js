@@ -9,7 +9,7 @@
    6. FAQ: acordeón
    7. Smooth scroll
    8. Animaciones al scroll (Intersection Observer)
-   9. Contador regresivo 17 junio 2026
+   9. Contador regresivo 26 agosto 2026
    10. Contador animado (números credibilidad)
    11. Modal aviso de privacidad
    12. WOW Effects (scroll bar, cursor glow, aurora, partículas,
@@ -189,9 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ──────────────────────────────────────────────────────────
-     9. CONTADOR REGRESIVO — 17 de junio 2026
+     9. CONTADOR REGRESIVO — 26 de agosto 2026
   ────────────────────────────────────────────────────────── */
-  const targetDate = new Date('2026-06-17T00:00:00');
+  const targetDate = new Date('2026-08-26T00:00:00');
   const cdDias     = document.getElementById('cd-dias');
   const cdHoras    = document.getElementById('cd-horas');
   const cdMinutos  = document.getElementById('cd-minutos');
